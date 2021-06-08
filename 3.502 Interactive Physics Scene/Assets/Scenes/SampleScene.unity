@@ -588,13 +588,11 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 588648434}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c1881d7f72dcfc8408c610db97b49b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MouseDefault: {fileID: 2800000, guid: 10c8df307285730468c584a12532f16b, type: 3}
-  MousePlayer: {fileID: 2800000, guid: a49477156d30d7b4a92600226f809a72, type: 3}
 --- !u!4 &588648436
 Transform:
   m_ObjectHideFlags: 0
