@@ -1,9 +1,16 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class MouseManager : MonoBehaviour
 {
+    //Billiard stick icon from https://depositphotos.com/vector-images/cue.html
+    //Mouse icon from https://freeiconshop.com/icon/cursor-icon-outline/
+
+    public Texture2D MouseDefault;
+    public Texture2D MousePlayer;
+
     // Start is called before the first frame update
     void Start()
     {

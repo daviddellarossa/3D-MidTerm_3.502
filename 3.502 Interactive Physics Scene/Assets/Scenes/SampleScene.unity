@@ -127,6 +127,19 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 856172170}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &106958428
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 106958427}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4569f4f9515994dbf1ff82b6dd9b6b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MousePlayer: {fileID: 2800000, guid: dca1289615edb6d499a7189966661b96, type: 3}
 --- !u!145 &106958433
 SpringJoint:
   m_ObjectHideFlags: 0
@@ -260,6 +273,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (7)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -384,6 +402,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ball (11)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
@@ -570,6 +593,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1881d7f72dcfc8408c610db97b49b02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  MouseDefault: {fileID: 2800000, guid: 10c8df307285730468c584a12532f16b, type: 3}
+  MousePlayer: {fileID: 2800000, guid: a49477156d30d7b4a92600226f809a72, type: 3}
 --- !u!4 &588648436
 Transform:
   m_ObjectHideFlags: 0
@@ -786,6 +811,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -866,6 +896,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (14)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -940,6 +975,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Player ball
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
@@ -1109,6 +1149,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -1188,6 +1233,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ball (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
@@ -1538,6 +1588,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (13)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -1617,6 +1672,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ball (6)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
@@ -1735,6 +1795,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -1814,6 +1879,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ball (12)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
@@ -1988,6 +2058,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -2067,6 +2142,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ball (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
@@ -2148,6 +2228,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (15)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -2228,6 +2313,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ball (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
+      objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
       propertyPath: m_RootOrder
@@ -2307,6 +2397,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Ball (10)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2478401408049273874, guid: 586c5ddfdc942d848bc2e155464752f5,
+        type: 3}
+      propertyPath: m_TagString
+      value: Ball
       objectReference: {fileID: 0}
     - target: {fileID: 2478401408049273886, guid: 586c5ddfdc942d848bc2e155464752f5,
         type: 3}
