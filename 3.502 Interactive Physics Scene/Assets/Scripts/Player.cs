@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -33,24 +34,21 @@ public class Player : MonoBehaviour
         CurrentState.OnMouseUp();
     }
 
-
     // Start is called before the first frame update
     void Start()
     {
-        SetState(IdleState.Instance);
+        SetState(new IdleState(this));
     }
 
     void Update()
     {
-        //if (Input.GetMouseButtonDown(1))
-        //{
-        //    Debug.Log("Right mouse button down");
-        //}
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             Debug.Log("Escape button down");
             CurrentState.OnKeyPressed(KeyCode.Escape);
         }
+
+        CurrentState.OnMouseMove(Input.mousePosition);
     }
 
     private void SetState(State state)
@@ -72,32 +70,21 @@ public class Player : MonoBehaviour
         SetState(e);
     }
 
+
     private abstract class State
     {
         public abstract event EventHandler<State> ChangeState;
-        public abstract void OnEnter();
-        public abstract void OnExit();
-        public abstract void OnMouseDown();
-        public abstract void OnMouseUp();
-        public abstract void OnKeyPressed(KeyCode keyCode);
+        public virtual void OnEnter(){}
+        public virtual void OnExit(){}
+        public virtual void OnMouseDown(){}
+        public virtual void OnMouseUp(){}
+        public virtual void OnMouseMove(Vector3 vector){}
+        public virtual void OnKeyPressed(KeyCode keyCode){}
     }
 
     private class IdleState : State
     {
-        private static IdleState instance;
-
-        public static IdleState Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new IdleState();
-                }
-
-                return instance;
-            }
-        }
+        public MonoBehaviour Parent { get; }
 
         public override event EventHandler<State> ChangeState;
 
@@ -114,58 +101,59 @@ public class Player : MonoBehaviour
         public override void OnMouseDown()
         {
             Debug.Log("Idle State: Mouse Down");
-            ChangeState?.Invoke(this, ChargeState.Instance);
+            ChangeState?.Invoke(this, new ChargeState(Parent));
         }
 
-        public override void OnMouseUp()
+        public IdleState(MonoBehaviour parent)
         {
-        }
-
-        public override void OnKeyPressed(KeyCode keyCode)
-        {
-        }
-
-        private IdleState()
-        {
+            Parent = parent ?? throw new ArgumentNullException("parent");
 
         }
     }
 
     private class ChargeState : State
     {
-        private static ChargeState instance;
-        public static ChargeState Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new ChargeState();
-                }
-
-                return instance;
-            }
-        }
+        public MonoBehaviour Parent { get; }
+        private GameObject _gameObject;
+        private SpringJoint _springJoint;
+        private Vector3 _initialPosition;
+        private Quaternion _initialRotation;
+        private Vector3 _currentPosition;
 
         public override event EventHandler<State> ChangeState;
-
+        
         public override void OnEnter()
         {
             Debug.Log("Entering Charge State");
+            _initialPosition = Parent.transform.position;
+            _initialRotation = Parent.transform.rotation;
+
+            _gameObject = GameObject.FindGameObjectWithTag("Player");
         }
 
         public override void OnExit()
         {
             Debug.Log("Exiting Charge State");
         }
-        public override void OnMouseDown()
-        {
-        }
 
         public override void OnMouseUp()
         {
-            Debug.Log("Charge State: Mouse Up");
-            ChangeState?.Invoke(this, ReleaseState.Instance);
+            var newDirection = (_initialPosition - _currentPosition) * 100;
+            Debug.Log($"Init: {_initialPosition}; Curr: {_currentPosition}; Force: {newDirection}");
+            _gameObject.GetComponent<Rigidbody>().AddForce(newDirection, ForceMode.Impulse);
+
+            //Debug.Log("Charge State: Mouse Up");
+            ChangeState?.Invoke(this, new ReleaseState(Parent));
+        }
+
+        public override void OnMouseMove(Vector3 vector)
+        {
+            var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            int layerMask = 1 << 8; //Layer 8 contains the Plane
+            RaycastHit hit;
+            Physics.Raycast(ray, out hit, 20, layerMask);
+
+            _currentPosition = new Vector3(hit.point.x, 0.25f, hit.point.z);
         }
 
         public override void OnKeyPressed(KeyCode keyCode)
@@ -175,40 +163,28 @@ public class Player : MonoBehaviour
                 case KeyCode.Escape:
                 {
                     Debug.Log("Charge State: Escape key pressed");
-                    ChangeState?.Invoke(this, IdleState.Instance);
+                    ChangeState?.Invoke(this, new IdleState(Parent));
                     break;
                 }
             }
         }
 
-        private ChargeState()
+        public ChargeState(MonoBehaviour parent)
         {
-
+            Parent = parent ?? throw new ArgumentNullException("parent");
         }
     }
 
     private class ReleaseState : State
     {
-        private static ReleaseState instance;
-        public static ReleaseState Instance
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    instance = new ReleaseState();
-                }
-
-                return instance;
-            }
-        }
+        public MonoBehaviour Parent { get; }
 
         public override event EventHandler<State> ChangeState;
 
         public override void OnEnter()
         {
             Debug.Log("Entering Release State");
-            ChangeState?.Invoke(this, IdleState.Instance);
+            ChangeState?.Invoke(this, new IdleState(Parent));
         }
 
         public override void OnExit()
@@ -220,18 +196,9 @@ public class Player : MonoBehaviour
             Debug.Log("Release State: Mouse Down");
         }
 
-        public override void OnMouseUp()
+        public ReleaseState(MonoBehaviour parent)
         {
-        }
-
-        public override void OnKeyPressed(KeyCode keyCode)
-        {
-        }
-
-        private ReleaseState()
-        {
-
+            Parent = parent ?? throw new ArgumentNullException("parent");
         }
     }
-
 }
