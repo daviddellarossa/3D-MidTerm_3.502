@@ -47,6 +47,11 @@ public class Player : MonoBehaviour
             Debug.Log("Escape button down");
             CurrentState.OnKeyPressed(KeyCode.Escape);
         }
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            Debug.Log("Return button down");
+            CurrentState.OnKeyPressed(KeyCode.Return);
+        }
 
         CurrentState.OnMouseMove(Input.mousePosition);
     }
@@ -109,6 +114,21 @@ public class Player : MonoBehaviour
             Parent = parent ?? throw new ArgumentNullException("parent");
 
         }
+
+        public override void OnKeyPressed(KeyCode keyCode)
+        {
+            switch (keyCode)
+            {
+                case KeyCode.Return:
+                    var player = GameObject.FindGameObjectWithTag("Player");
+                    var rigidbody = player.GetComponent<Rigidbody>();
+                    rigidbody.velocity = Vector3.zero;
+                    rigidbody.angularVelocity = Vector3.zero;
+                    player.transform.position = new Vector3(-4f, 0.25f, 0f);
+                    
+                    break;
+            }
+        }
     }
 
     private class ChargeState : State
@@ -119,6 +139,7 @@ public class Player : MonoBehaviour
         private Vector3 _initialPosition;
         private Quaternion _initialRotation;
         private Vector3 _currentPosition;
+        private GameObject _forceIndicator;
 
         public override event EventHandler<State> ChangeState;
         
@@ -129,6 +150,8 @@ public class Player : MonoBehaviour
             _initialRotation = Parent.transform.rotation;
 
             _gameObject = GameObject.FindGameObjectWithTag("Player");
+
+            _forceIndicator = GameObject.FindGameObjectWithTag("LineRenderer");
         }
 
         public override void OnExit()
@@ -138,9 +161,16 @@ public class Player : MonoBehaviour
 
         public override void OnMouseUp()
         {
-            var newDirection = (_initialPosition - _currentPosition) * 100;
-            Debug.Log($"Init: {_initialPosition}; Curr: {_currentPosition}; Force: {newDirection}");
-            _gameObject.GetComponent<Rigidbody>().AddForce(newDirection, ForceMode.Impulse);
+            var impulseVector = (_initialPosition - _currentPosition);
+            var impulseMagnitude = Mathf.Clamp(impulseVector.magnitude * 10, 0, 50);
+            var impulse = impulseVector.normalized * impulseMagnitude;
+
+            Debug.Log($"Init: {_initialPosition}; Curr: {_currentPosition}; Force: {impulse}");
+
+
+            _gameObject.GetComponent<Rigidbody>().AddForce(impulse, ForceMode.Impulse);
+
+            _forceIndicator.transform.localScale = Vector3.zero;
 
             //Debug.Log("Charge State: Mouse Up");
             ChangeState?.Invoke(this, new ReleaseState(Parent));
@@ -154,6 +184,15 @@ public class Player : MonoBehaviour
             Physics.Raycast(ray, out hit, 20, layerMask);
 
             _currentPosition = new Vector3(hit.point.x, 0.25f, hit.point.z);
+
+            var forceDirection = _initialPosition - _currentPosition;
+            var angle = Mathf.Atan2(forceDirection.z, forceDirection.x) * 180 / Mathf.PI;
+            var quaternion = Quaternion.Euler(Vector3.down * (angle - 90));
+
+            Debug.Log(forceDirection);
+            _forceIndicator.transform.position = _initialPosition;
+            _forceIndicator.transform.rotation = quaternion;
+            _forceIndicator.transform.localScale = new Vector3(1, 1, forceDirection.magnitude);
         }
 
         public override void OnKeyPressed(KeyCode keyCode)
@@ -163,6 +202,8 @@ public class Player : MonoBehaviour
                 case KeyCode.Escape:
                 {
                     Debug.Log("Charge State: Escape key pressed");
+                    _forceIndicator.transform.localScale = Vector3.zero;
+
                     ChangeState?.Invoke(this, new IdleState(Parent));
                     break;
                 }
