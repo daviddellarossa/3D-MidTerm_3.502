@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    // Start is called before the first frame update
-
     public Texture2D MousePlayer;
 
     [SerializeField] private State CurrentState;
@@ -34,7 +32,6 @@ public class Player : MonoBehaviour
         CurrentState.OnMouseUp();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
         SetState(new IdleState(this));
@@ -90,31 +87,25 @@ public class Player : MonoBehaviour
     private class IdleState : State
     {
         public MonoBehaviour Parent { get; }
-
         public override event EventHandler<State> ChangeState;
-
         public override void OnEnter()
         {
             Debug.Log("Entering Idle State");
         }
-
         public override void OnExit()
         {
             Debug.Log("Exiting Idle State");
         }
-
         public override void OnMouseDown()
         {
             Debug.Log("Idle State: Mouse Down");
             ChangeState?.Invoke(this, new ChargeState(Parent));
         }
-
         public IdleState(MonoBehaviour parent)
         {
             Parent = parent ?? throw new ArgumentNullException("parent");
 
         }
-
         public override void OnKeyPressed(KeyCode keyCode)
         {
             switch (keyCode)
